@@ -25,7 +25,7 @@
 #' \item{Priors}{The specified priors}
 #' }
 #'
-#' @references Burgess, S., Butterworth, A., Thompson S.G. Mendelian randomization analysis with multiple genetic variants using summarized data. Genetic Epidemiology, 2013, 37, 7, 658-665 <https://dx.doi.org/10.1002/gepi.21758>.
+#' @references Burgess, S., Butterworth, A., Thompson S.G. Mendelian randomization analysis with multiple genetic variants using summarized data. Genetic Epidemiology, 2013, 37, 7, 658-665 \doi{10.1002/gepi.21758}.
 #'
 #' @examples
 #' fit <- mr_ivw_rjags(bmi_insulin)
@@ -45,6 +45,11 @@ mr_ivw_rjags <- function(object,
                          n.iter = 5000,
                          seed = NULL,
                          ...) {
+
+  # convert MRInput object to mr_format
+  if ("MRInput" %in% class(object)) {
+    object <- mrinput_mr_format(object)
+  }
 
   # check class of object
   if (!("mr_format" %in% class(object))) {

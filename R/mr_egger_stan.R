@@ -18,8 +18,8 @@
 #'
 #' @return An object of class [`stanfit`].
 #'
-#' @references Bowden J, Davey Smith G, Burgess S. Mendelian randomization with invalid instruments: effect estimation and bias detection through Egger regression. International Journal of Epidemiology, 2015, 44, 2, 512-525. <http://dx.doi.org/10.1093/ije/dyv080>.
-#' @references Stan Development Team (2020). "RStan: the R interface to Stan." R package version 2.19.3, <http://mc-stan.org/>.
+#' @references Bowden J, Davey Smith G, Burgess S. Mendelian randomization with invalid instruments: effect estimation and bias detection through Egger regression. International Journal of Epidemiology, 2015, 44, 2, 512-525. \doi{10.1093/ije/dyv080}.
+#' @references Stan Development Team (2020). "RStan: the R interface to Stan." R package version 2.19.3, <https://mc-stan.org/>.
 #'
 #' @export
 #'
@@ -39,6 +39,11 @@ mr_egger_stan <- function(data,
                         rho = 0.5,
                         ...) {
 
+  # convert MRInput object to mr_format
+  if ("MRInput" %in% class(data)) {
+    data <- mrinput_mr_format(data)
+  }
+
   # check class of object
   if (!("mr_format" %in% class(data))) {
     stop(
@@ -48,11 +53,16 @@ mr_egger_stan <- function(data,
 
   pars <- c("intercept","estimate","sigma")
 
+  ## setting directional change
+
+  ybet <- sign(data[,2]) * data[,3]
+  xbet <- abs(data[,2])
+
   # converting dataset to a list
   datam <- list(
     n = nrow(data),
-    xbeta = data[, 2]/data[, 5],
-    ybeta = data[, 3]/data[, 5],
+    xbeta = xbet/data[, 5],
+    ybeta = ybet/data[, 5],
     weights = 1/data[, 5],
     prior = prior, rho = rho
   )

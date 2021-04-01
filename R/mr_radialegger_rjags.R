@@ -30,7 +30,7 @@
 #' \item{Prior}{The specified priors}
 #' }
 #'
-#' @references Bowden, J., et al., Improving the visualization, interpretation and analysis of two-sample summary data Mendelian randomization via the Radial plot and Radial regression. International Journal of Epidemiology, 2018. 47(4): p. 1264-1278. <https://doi.org/10.1093/ije/dyy101>.
+#' @references Bowden, J., et al., Improving the visualization, interpretation and analysis of two-sample summary data Mendelian randomization via the Radial plot and Radial regression. International Journal of Epidemiology, 2018. 47(4): p. 1264-1278. \doi{10.1093/ije/dyy101}.
 #'
 #' @examples
 #' fit <- mr_radialegger_rjags(bmi_insulin)
@@ -51,6 +51,11 @@ mr_radialegger_rjags <- function(object,
                                  seed = NULL,
                                  rho = 0.5,
                                  ...) {
+
+  # convert MRInput object to mr_format
+  if ("MRInput" %in% class(object)) {
+    object <- mrinput_mr_format(object)
+  }
 
   # check class of object
   if (!("mr_format" %in% class(object))) {
@@ -144,11 +149,15 @@ mr_radialegger_rjags <- function(object,
       paste0("model {",Likelihood,"\n\n", Priors,"\n\n }")
   }
 
+  # setting direction
+
+  ybet <- sign(object[,2]) * object[,3]
+  xbet <- abs(object[,2])
 
   # ratio estimates and weights
 
-  bj <- object[, 3] / object[, 5]
-  wj <- object[, 2] / object[, 5]
+  bj <- ybet / object[, 5]
+  wj <- xbet / object[, 5]
 
 
   if (!is.null(seed)) {

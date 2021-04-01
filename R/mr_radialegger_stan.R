@@ -19,8 +19,8 @@
 #' @return An object of class [`stanfit`].
 #'
 #' @export
-#' @references Bowden, J., et al., Improving the visualization, interpretation and analysis of two-sample summary data Mendelian randomization via the Radial plot and Radial regression. International Journal of Epidemiology, 2018. 47(4): p. 1264-1278. <https://doi.org/10.1093/ije/dyy101>.
-#' @references Stan Development Team (2020). "RStan: the R interface to Stan." R package version 2.19.3, <http://mc-stan.org/>.
+#' @references Bowden, J., et al., Improving the visualization, interpretation and analysis of two-sample summary data Mendelian randomization via the Radial plot and Radial regression. International Journal of Epidemiology, 2018. 47(4): p. 1264-1278. \doi{10.1093/ije/dyy101}.
+#' @references Stan Development Team (2020). "RStan: the R interface to Stan." R package version 2.19.3, <https://mc-stan.org/>.
 #'
 #' @examples
 #' \donttest{
@@ -37,6 +37,12 @@ mr_radialegger_stan <- function(data,
                           seed = 12345,
                           ...) {
 
+  # convert MRInput object to mr_format
+  if ("MRInput" %in% class(data)) {
+    data <- mrinput_mr_format(data)
+  }
+
+
   # check class of object
   if (!("mr_format" %in% class(data))) {
     stop(
@@ -46,11 +52,16 @@ mr_radialegger_stan <- function(data,
 
   pars <- c("intercept","estimate","sigma")
 
+  ## setting directional change
+
+  ybet <- sign(data[,2]) * data[,3]
+  xbet <- abs(data[,2])
+
   # converting dataset to a list
   datam <- list(
     n = nrow(data),
-    xbeta = data[, 2] / data[, 5],
-    ybeta = data[, 3] / data[, 5],
+    xbeta = xbet / data[, 5],
+    ybeta = ybet / data[, 5],
     prior = prior,
     rho = rho
   )

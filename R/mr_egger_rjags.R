@@ -1,6 +1,6 @@
-#' Bayesian implementation of the MR-Egger model with choice of prior distributions fitted using JAGS.
+#' Bayesian implementation of the MR-Egger multivariate model with choice of prior distributions fitted using JAGS.
 #'
-#' Bayesian implementation of the MR-Egger model with choice of prior distributions fitted using JAGS.
+#' Bayesian implementation of the MR-Egger multivariate model with choice of prior distributions fitted using JAGS.
 #'
 #' @param object A data object of class [`mr_format`].
 #' @param prior A character string for selecting the prior distributions;
@@ -30,14 +30,14 @@
 #' \item{Priors}{The specified priors}
 #' }
 #'
-#' @references Bowden et. al., Mendelian randomization with invalid instruments: effect estimation and bias detection through Egger regression. International Journal of Epidemiology 2015. 44(2): p. 512-525. <https://doi.org/10.1093/ije/dyv080>
+#' @references Bowden et. al., Mendelian randomization with invalid instruments: effect estimation and bias detection through Egger regression. International Journal of Epidemiology 2015. 44(2): p. 512-525. \doi{10.1093/ije/dyv080}
 #' @examples
 #' fit <- mr_egger_rjags(bmi_insulin)
 #' summary(fit)
 #' plot(fit$samples)
 #' # 90% credible interval
 #' fitdf <- do.call(rbind.data.frame, fit$samples)
-#' cri90 <- quantile(fitdf$Estimate, probs = c(0.05,0.95))
+#' cri90 <- sapply(fitdf, quantile, probs = c(0.05,0.95))
 #' print(cri90)
 #'
 mr_egger_rjags <- function(object,
@@ -50,6 +50,11 @@ mr_egger_rjags <- function(object,
                            seed = NULL,
                            rho = 0.5,
                            ...) {
+
+  # convert MRInput object to mr_format
+  if ("MRInput" %in% class(object)) {
+    object <- mrinput_mr_format(object)
+  }
 
   # check class of object
   if (!("mr_format" %in% class(object))) {
@@ -164,8 +169,8 @@ mr_egger_rjags <- function(object,
     textConnection(egger_model_string),
     data = list(
       N = nrow(object),
-      by = object[, 3],
-      bx = object[, 2],
+      by = sign(object[,2])*object[, 3],
+      bx = abs(object[, 2]),
       byse = object[, 5]
     ),
     n.chains = n.chains,

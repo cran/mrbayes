@@ -2,7 +2,7 @@
 % Please edit documentation in R/mr_egger_rjags.R
 \name{mr_egger_rjags}
 \alias{mr_egger_rjags}
-\title{Bayesian implementation of the MR-Egger model with choice of prior distributions fitted using JAGS.}
+\title{Bayesian implementation of the MR-Egger multivariate model with choice of prior distributions fitted using JAGS.}
 \usage{
 mr_egger_rjags(
   object,
@@ -57,7 +57,7 @@ An object of class \code{eggerjags} containing the following components:
 }
 }
 \description{
-Bayesian implementation of the MR-Egger model with choice of prior distributions fitted using JAGS.
+Bayesian implementation of the MR-Egger multivariate model with choice of prior distributions fitted using JAGS.
 }
 \examples{
 fit <- mr_egger_rjags(bmi_insulin)
@@ -65,10 +65,10 @@ summary(fit)
 plot(fit$samples)
 # 90\% credible interval
 fitdf <- do.call(rbind.data.frame, fit$samples)
-cri90 <- quantile(fitdf$Estimate, probs = c(0.05,0.95))
+cri90 <- sapply(fitdf, quantile, probs = c(0.05,0.95))
 print(cri90)
 
 }
 \references{
-Bowden et. al., Mendelian randomization with invalid instruments: effect estimation and bias detection through Egger regression. International Journal of Epidemiology 2015. 44(2): p. 512-525. \url{https://doi.org/10.1093/ije/dyv080}
+Bowden et. al., Mendelian randomization with invalid instruments: effect estimation and bias detection through Egger regression. International Journal of Epidemiology 2015. 44(2): p. 512-525. \doi{10.1093/ije/dyv080}
 }
