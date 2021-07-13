@@ -50,6 +50,8 @@ mr_egger_rjags <- function(object,
                            seed = NULL,
                            rho = 0.5,
                            ...) {
+  # check if rjags is installed
+  rjags_check()
 
   # convert MRInput object to mr_format
   if ("MRInput" %in% class(object)) {

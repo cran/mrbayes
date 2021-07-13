@@ -46,6 +46,9 @@ mr_ivw_rjags <- function(object,
                          seed = NULL,
                          ...) {
 
+  # check if rjags is installed
+  rjags_check()
+
   # convert MRInput object to mr_format
   if ("MRInput" %in% class(object)) {
     object <- mrinput_mr_format(object)
