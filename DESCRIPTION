@@ -1,7 +1,7 @@
 Package: mrbayes
 Type: Package
 Title: Bayesian Summary Data Models for Mendelian Randomization Studies
-Version: 0.4.0
+Version: 0.5.0
 Authors@R: c(
   person("Okezie", "Uche-Ikonne",
     email = "okezieikonne@gmail.com",
@@ -30,16 +30,16 @@ Suggests: testthat, rjags (>= 4-9), tidyverse, knitr, ggplot2, ggmcmc,
         bookdown, MendelianRandomization
 URL: https://github.com/okezie94/mrbayes
 BugReports: https://github.com/okezie94/mrbayes/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 SystemRequirements: GNU make
 Biarch: true
 LinkingTo: BH (>= 1.66.0), Rcpp (>= 0.12.0), RcppEigen (>= 0.3.3.3.0),
         rstan (>= 2.18.1), StanHeaders (>= 2.18.0)
 NeedsCompilation: yes
-Packaged: 2021-07-13 09:53:18 UTC; okezieuche-ikonne
+Packaged: 2021-09-21 07:14:44 UTC; okezieuche-ikonne
 Author: Okezie Uche-Ikonne [aut, cre] (<https://orcid.org/0000-0002-8461-8099>),
   Frank Dondelinger [aut] (<https://orcid.org/0000-0003-1816-6300>),
   Tom Palmer [aut] (<https://orcid.org/0000-0003-4655-4511>)
 Maintainer: Okezie Uche-Ikonne <okezieikonne@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-07-13 12:00:02 UTC
+Date/Publication: 2021-09-21 13:10:31 UTC
