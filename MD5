@@ -1,6 +1,6 @@
-a9ebdc25350cb4012d2ef87591c33e84 *DESCRIPTION
+8de31ec89ca8c1882bb7f70fcedf51dc *DESCRIPTION
 6affbba2edcaf61643b9c36a86e79851 *NAMESPACE
-c9227e9dceb0e38e51da2018fc2625e3 *NEWS.md
+cfd58b06b5237a9e6974337b503eabcc *NEWS.md
 673f9b4775dd43ffa978b0d4aeef9107 *R/bmi_insulin.R
 41b9985b6fa5ade88fb3448ff27b5c27 *R/dodata.R
 b7d4eae588f9d0448831105352aa79c2 *R/mr_egger_rjags.R
@@ -12,7 +12,7 @@ e5a20dfda00ebd8f65c220e00e42d28b *R/mr_radialegger_rjags.R
 eafc5036d4204798bfdf298044bbd50f *R/mr_radialegger_stan.R
 397334db36ddf05cd71e2c0b41ad9d23 *R/mrbayes-package.r
 cbb68538d29b612b8f811a4c8b1a2a1e *R/mrinput_mrformat.R
-6879a04c3d47d3d71b71b0a42d8bf7ce *R/mvmr_egger_rjags.R
+b8b07a500c2d32d58f527b588086a889 *R/mvmr_egger_rjags.R
 3470f7db3e16c5d66be5c9ed51ce7ec2 *R/mvmr_egger_stan.R
 cf29512a0c581f6c7dc17582f69d0026 *R/mvmr_format.R
 59d2af7e4a79b4fca3a9100ffbfa0f8a *R/mvmr_ivw_rjags.R
@@ -22,7 +22,7 @@ c7e93ce023e4cae23b60bfd373d3acb2 *R/rstan_check.R
 925b973eb0f0795d5beb2d22ff69c19b *R/stanmodels.R
 6188b5e99dbb667d912fbab4f3c5eac0 *R/tsmr_mrformat.R
 26c7b5887ffdd7139e21d4a7cfee143e *README.md
-09a1bc66d0534b02fa2fedf520913198 *build/partial.rdb
+b2e78247e7a45dbe381f71f351379481 *build/partial.rdb
 1cc60bdd8610449d30184e0bb374bf46 *configure
 6bea7bdbd44ffa386677bfdec2d1984b *configure.win
 98984c26c06a00bf383d3868e534437f *data/bmi_insulin.rda
@@ -45,7 +45,7 @@ eb60c37e967cfd0288b798a0139116d7 *man/mr_radialegger_rjags.Rd
 cd75ca234b830972cf03c39c2a6bf085 *man/mr_radialegger_stan.Rd
 b496de02d846c6f23476783d0b30ca33 *man/mrbayes-package.Rd
 837c68aa8dcd5d9dad12e21cba38007c *man/mrinput_mr_format.Rd
-4f5b593a1ec389fc95b3eac119d0a08b *man/mvmr_egger_rjags.Rd
+0e05cf05690df4cb7f427578ed6570fe *man/mvmr_egger_rjags.Rd
 5aa79259e2ac83aa25c5286b82961151 *man/mvmr_egger_stan.Rd
 67c3738d184b276479966e85d5c9bd90 *man/mvmr_format.Rd
 d470f979def925cec736ebf913c94ac6 *man/mvmr_ivw_rjags.Rd
