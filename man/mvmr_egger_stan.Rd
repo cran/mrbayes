@@ -38,15 +38,16 @@ mvmr_egger_stan(
 
 \item{orientate}{Numeric value to indicate the oriented exposure.}
 
-\item{...}{Additional arguments passed through to \code{\link[rstan:stanmodel-method-sampling]{rstan::sampling()}}.}
+\item{...}{Additional arguments passed through to \code{\link[rstan:sampling]{rstan::sampling()}}.}
 }
 \value{
-An object of class \code{\link[rstan:stanfit-class]{rstan::stanfit}}.
+An object of class \code{\link[rstan:stanfit]{rstan::stanfit}}.
 }
 \description{
 Bayesian implementation of the MVMR-Egger model with choice of prior distributions fitted using RStan.
 }
 \examples{
+\donttest{
 if (requireNamespace("rstan", quietly = TRUE)) {
 # Note we recommend setting n.burn and n.iter to larger values
 dat <- mvmr_format(
@@ -58,6 +59,7 @@ dat <- mvmr_format(
 )
 suppressWarnings(mvegger_fit <- mvmr_egger_stan(dat, n.burn = 500, n.iter = 1000, refresh = 0L))
 print(mvegger_fit)
+}
 }
 }
 \references{

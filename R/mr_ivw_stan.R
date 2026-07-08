@@ -20,20 +20,23 @@
 #' @references Stan Development Team (2020). "RStan: the R interface to Stan." R package version 2.19.3, <https://mc-stan.org/>.
 #'
 #' @examples
+#' \donttest{
 #' if (requireNamespace("rstan", quietly = TRUE)) {
 #' suppressWarnings(ivw_fit <- mr_ivw_stan(bmi_insulin, refresh = 0L))
 #' print(ivw_fit)
 #' rstan::traceplot(ivw_fit)
 #' }
+#' }
 #' @export
-mr_ivw_stan <- function(data,
-                        prior = 1,
-                        n.chains = 3,
-                        n.burn = 1000,
-                        n.iter = 5000,
-                        seed = 12345,
-                        ...) {
-
+mr_ivw_stan <- function(
+  data,
+  prior = 1,
+  n.chains = 3,
+  n.burn = 1000,
+  n.iter = 5000,
+  seed = 12345,
+  ...
+) {
   # check for rstan
   rstan_check()
 
@@ -69,7 +72,5 @@ mr_ivw_stan <- function(data,
     ...
   )
 
-
   return(ivwfit)
-
 }

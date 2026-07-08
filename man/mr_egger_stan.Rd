@@ -36,19 +36,21 @@ mr_egger_stan(
 
 \item{rho}{Numeric indicating the correlation coefficient input into the joint prior distribution. The default is \code{0.5}.}
 
-\item{...}{Additional arguments passed through to \code{\link[rstan:stanmodel-method-sampling]{rstan::sampling()}}.}
+\item{...}{Additional arguments passed through to \code{\link[rstan:sampling]{rstan::sampling()}}.}
 }
 \value{
-An object of class \code{\link[rstan:stanfit-class]{rstan::stanfit}}.
+An object of class \code{\link[rstan:stanfit]{rstan::stanfit}}.
 }
 \description{
 Bayesian inverse variance weighted model with a choice of prior distributions fitted using Stan.
 }
 \examples{
+\donttest{
 if (requireNamespace("rstan", quietly = TRUE)) {
 # Note we recommend setting n.burn and n.iter to larger values
 suppressWarnings(egger_fit <- mr_egger_stan(bmi_insulin, n.burn = 500, n.iter = 1000, refresh = 0L))
 print(egger_fit)
+}
 }
 }
 \references{

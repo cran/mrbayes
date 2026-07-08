@@ -20,6 +20,7 @@
 #' @references Stan Development Team (2020). "RStan: the R interface to Stan." R package version 2.19.3, <https://mc-stan.org/>.
 #'
 #' @examples
+#' \donttest{
 #' if (requireNamespace("rstan", quietly = TRUE)) {
 #' dat <- mvmr_format(
 #'   rsid = dodata$rsid,
@@ -32,22 +33,24 @@
 #' print(mvivw_fit)
 #' rstan::traceplot(mvivw_fit)
 #' }
+#' }
 #' @export
-mvmr_ivw_stan <- function(data,
-                          prior = 1,
-                          n.chains = 3,
-                          n.burn = 1000,
-                          n.iter = 5000,
-                          seed = 12345,
-                          ...) {
-
+mvmr_ivw_stan <- function(
+  data,
+  prior = 1,
+  n.chains = 3,
+  n.burn = 1000,
+  n.iter = 5000,
+  seed = 12345,
+  ...
+) {
   # check for rstan
   rstan_check()
 
   # check class of object
   if (!("mvmr_format" %in% class(data))) {
     stop(
-      'The class of the data object must be "mvmr_format", please resave the object with the output of e.g. object <- mr_format(object).'
+      'The class of the data object must be "mvmr_format", please resave the object with the output of e.g. object <- mvmr_format(object).'
     )
   }
 
@@ -73,5 +76,4 @@ mvmr_ivw_stan <- function(data,
   )
 
   return(mvivwfit)
-
 }

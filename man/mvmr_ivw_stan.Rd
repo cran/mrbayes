@@ -32,15 +32,16 @@ mvmr_ivw_stan(
 
 \item{seed}{Numeric indicating the random number seed. The default is \code{12345}.}
 
-\item{...}{Additional arguments passed through to \code{\link[rstan:stanmodel-method-sampling]{rstan::sampling()}}.}
+\item{...}{Additional arguments passed through to \code{\link[rstan:sampling]{rstan::sampling()}}.}
 }
 \value{
-An object of class \code{\link[rstan:stanfit-class]{rstan::stanfit}}.
+An object of class \code{\link[rstan:stanfit]{rstan::stanfit}}.
 }
 \description{
 Bayesian multivariate inverse variance weighted model with a choice of prior distributions fitted using RStan.
 }
 \examples{
+\donttest{
 if (requireNamespace("rstan", quietly = TRUE)) {
 dat <- mvmr_format(
   rsid = dodata$rsid,
@@ -52,6 +53,7 @@ dat <- mvmr_format(
 suppressWarnings(mvivw_fit <- mvmr_ivw_stan(dat, refresh = 0L))
 print(mvivw_fit)
 rstan::traceplot(mvivw_fit)
+}
 }
 }
 \references{

@@ -26,6 +26,7 @@ mvmr_egger_rjags(
 \item \code{"default"} selects a non-informative set of priors;
 \item \code{"weak"} selects weakly informative priors;
 \item \code{"pseudo"} selects a pseudo-horseshoe prior on the causal effect;
+\item \code{"joint"} selects a joint prior on the intercept and slopes.
 }}
 
 \item{betaprior}{A character string in JAGS syntax to allow a user defined prior for the causal effect.}
@@ -62,6 +63,7 @@ An object of class \code{mveggerjags} containing the following components:
 Bayesian implementation of the MVMR-Egger model with choice of prior distributions fitted using JAGS.
 }
 \examples{
+\donttest{
 if (requireNamespace("rjags", quietly = TRUE)) {
 \dontrun{
 dat <- mvmr_format(
@@ -82,6 +84,7 @@ print(cri90)
 }
 }
 }
+}
 \references{
-Bowden et. al., Mendelian randomization with invalid instruments: effect estimation and bias detection through Egger regression. International Journal of Epidemiology 2015. 44(2): p. 512-525. \doi{10.1093/ije/dyv080}
+Bowden et al., Mendelian randomization with invalid instruments: effect estimation and bias detection through Egger regression. International Journal of Epidemiology 2015. 44(2): p. 512-525. \doi{10.1093/ije/dyv080}
 }

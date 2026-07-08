@@ -23,6 +23,7 @@
 #' @references Stan Development Team (2020). "RStan: the R interface to Stan." R package version 2.19.3, <https://mc-stan.org/>.
 #'
 #' @examples
+#' \donttest{
 #' if (requireNamespace("rstan", quietly = TRUE)) {
 #' # Note we recommend setting n.burn and n.iter to larger values
 #' suppressWarnings({
@@ -30,15 +31,17 @@
 #' })
 #' print(radegger_fit)
 #' }
-mr_radialegger_stan <- function(data,
-                                prior = 1,
-                                n.chains = 3,
-                                n.burn = 1000,
-                                n.iter = 5000,
-                                rho = 0.5,
-                                seed = 12345,
-                                ...) {
-
+#' }
+mr_radialegger_stan <- function(
+  data,
+  prior = 1,
+  n.chains = 3,
+  n.burn = 1000,
+  n.iter = 5000,
+  rho = 0.5,
+  seed = 12345,
+  ...
+) {
   # check for rstan
   rstan_check()
 
@@ -46,7 +49,6 @@ mr_radialegger_stan <- function(data,
   if ("MRInput" %in% class(data)) {
     data <- mrinput_mr_format(data)
   }
-
 
   # check class of object
   if (!("mr_format" %in% class(data))) {
@@ -84,5 +86,4 @@ mr_radialegger_stan <- function(data,
   )
 
   return(radialeggerfit)
-
 }

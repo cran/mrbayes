@@ -1,7 +1,7 @@
 Type: Package
 Package: mrbayes
 Title: Bayesian Summary Data Models for Mendelian Randomization Studies
-Version: 0.5.2
+Version: 0.5.3
 Authors@R: c(
     person("Okezie", "Uche-Ikonne", , "okezieikonne@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0002-8461-8099")),
@@ -19,7 +19,7 @@ URL: https://github.com/okezie94/mrbayes,
         https://okezie94.github.io/mrbayes/,
         https://mrcieu.r-universe.dev/mrbayes
 BugReports: https://github.com/okezie94/mrbayes/issues
-Depends: R (>= 3.6.0)
+Depends: R (>= 4.3.0)
 Imports: DescTools, methods, Rcpp (>= 0.12.0), RcppParallel (>= 5.0.1),
         rstan (>= 2.18.1), rstantools (>= 2.4.0)
 Suggests: MendelianRandomization, rjags (>= 4-9), testthat
@@ -27,15 +27,18 @@ LinkingTo: BH (>= 1.66.0), Rcpp (>= 0.12.0), RcppEigen (>= 0.3.3.3.0),
         RcppParallel (>= 5.0.1), rstan (>= 2.18.1), StanHeaders (>=
         2.18.0)
 Biarch: true
+Config/roxygen2/markdown: TRUE
+Config/roxygen2/version: 8.0.0
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.2
 SystemRequirements: GNU make
 NeedsCompilation: yes
-Packaged: 2024-08-19 09:51:21 UTC; eptmp
-Author: Okezie Uche-Ikonne [aut] (<https://orcid.org/0000-0002-8461-8099>),
-  Frank Dondelinger [aut] (<https://orcid.org/0000-0003-1816-6300>),
-  Tom Palmer [aut, cre] (<https://orcid.org/0000-0003-4655-4511>)
+Packaged: 2026-07-08 06:49:54 UTC; eptmp
+Author: Okezie Uche-Ikonne [aut] (ORCID:
+    <https://orcid.org/0000-0002-8461-8099>),
+  Frank Dondelinger [aut] (ORCID:
+    <https://orcid.org/0000-0003-1816-6300>),
+  Tom Palmer [aut, cre] (ORCID: <https://orcid.org/0000-0003-4655-4511>)
 Maintainer: Tom Palmer <remlapmot@hotmail.com>
 Repository: CRAN
-Date/Publication: 2024-08-19 11:50:02 UTC
+Date/Publication: 2026-07-08 08:40:02 UTC

@@ -60,6 +60,7 @@ An object of class \code{eggerjags} containing the following components:
 Bayesian implementation of the MR-Egger multivariate model with choice of prior distributions fitted using JAGS.
 }
 \examples{
+\donttest{
 if (requireNamespace("rjags", quietly = TRUE)) {
 fit <- mr_egger_rjags(bmi_insulin)
 summary(fit)
@@ -70,6 +71,7 @@ cri90 <- sapply(fitdf, quantile, probs = c(0.05, 0.95))
 print(cri90)
 }
 }
+}
 \references{
-Bowden et. al., Mendelian randomization with invalid instruments: effect estimation and bias detection through Egger regression. International Journal of Epidemiology 2015. 44(2): p. 512-525. \doi{10.1093/ije/dyv080}
+Bowden et al., Mendelian randomization with invalid instruments: effect estimation and bias detection through Egger regression. International Journal of Epidemiology 2015. 44(2): p. 512-525. \doi{10.1093/ije/dyv080}
 }

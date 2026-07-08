@@ -4,7 +4,8 @@
 [![R-CMD-check](https://github.com/okezie94/mrbayes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/okezie94/mrbayes/actions/workflows/R-CMD-check.yaml)
 [![Coverage status](https://codecov.io/gh/okezie94/mrbayes/branch/master/graph/badge.svg)](https://app.codecov.io/github/okezie94/mrbayes?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/mrbayes)](https://cran.r-project.org/package=mrbayes)
-[![RStudio_CRAN_mirror_downloads_badge](http://cranlogs.r-pkg.org/badges/grand-total/mrbayes?color=blue)](https://CRAN.R-project.org/package=mrbayes)
+[![RStudio_CRAN_mirror_downloads_badge](https://cranlogs.r-pkg.org/badges/grand-total/mrbayes?color=blue)](https://CRAN.R-project.org/package=mrbayes)
+[![r-universe](https://mrcieu.r-universe.dev/badges/mrbayes)](https://mrcieu.r-universe.dev/mrbayes)
 <!-- badges: end -->
 
 Bayesian implementation of IVW and MR-Egger models.
@@ -12,7 +13,7 @@ Bayesian implementation of IVW and MR-Egger models.
 
 ## Installation instructions
  
-Install the CRAN version with following code:
+Install the CRAN version with the following code:
 
 ``` r
 install.packages("mrbayes")
@@ -31,9 +32,9 @@ or from GitHub with:
 remotes::install_github("okezie94/mrbayes")
 ```
 
-### Installing JAGS to use the JAGs functions
+### Installing JAGS to use the JAGS functions
 
-Using the functions which use JAGS require that the JAGS software is installed.
+The functions which use JAGS require that the JAGS software is installed.
 
 On macOS the easiest way to install JAGS is through Homebrew with
 

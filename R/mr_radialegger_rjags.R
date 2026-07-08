@@ -24,7 +24,7 @@
 #' \item{AvgPleio}{The mean of the simulated pleiotropic effect}
 #' \item{CausalEffect}{The mean of the simulated causal effect}
 #' \item{StandardError}{Standard deviation of the simulated causal effect}
-#' \item{sigma}{The mean of the simaulted residual standard deviation}
+#' \item{sigma}{The mean of the simulated residual standard deviation}
 #' \item{CredibleInterval}{The credible interval for the causal effect, which includes the lower (2.5%), median (50%) and upper intervals (97.5%)}
 #' \item{samples}{Output of the Bayesian MCMC samples}
 #' \item{Prior}{The specified priors}
@@ -33,6 +33,7 @@
 #' @references Bowden, J., et al., Improving the visualization, interpretation and analysis of two-sample summary data Mendelian randomization via the Radial plot and Radial regression. International Journal of Epidemiology, 2018. 47(4): p. 1264-1278. \doi{10.1093/ije/dyy101}.
 #'
 #' @examples
+#' \donttest{
 #' if (requireNamespace("rjags", quietly = TRUE)) {
 #' fit <- mr_radialegger_rjags(bmi_insulin)
 #' summary(fit)
@@ -42,16 +43,19 @@
 #' cri90 <- quantile(fitdf$Estimate, probs = c(0.05, 0.95))
 #' print(cri90)
 #' }
-mr_radialegger_rjags <- function(object,
-                                 prior = "default",
-                                 betaprior = "",
-                                 sigmaprior = "",
-                                 n.chains = 3,
-                                 n.burn = 1000,
-                                 n.iter = 5000,
-                                 seed = NULL,
-                                 rho = 0.5,
-                                 ...) {
+#' }
+mr_radialegger_rjags <- function(
+  object,
+  prior = "default",
+  betaprior = "",
+  sigmaprior = "",
+  n.chains = 3,
+  n.burn = 1000,
+  n.iter = 5000,
+  seed = NULL,
+  rho = 0.5,
+  ...
+) {
   # check if rjags is installed
   rjags_check()
 
@@ -62,16 +66,19 @@ mr_radialegger_rjags <- function(object,
 
   # check class of object
   if (!("mr_format" %in% class(object))) {
-    stop('The class of the data object must be "mr_format", please resave the object with the output of e.g. object <- mr_format(object).')
+    stop(
+      'The class of the data object must be "mr_format", please resave the object with the output of e.g. object <- mr_format(object).'
+    )
   }
 
   # Strings for likelihood
 
   Likelihood <-
     "for (i in 1:N){
-    by[i] ~ dnorm(by.hat[i], sigma)
+    by[i] ~ dnorm(by.hat[i], tau)
     by.hat[i] <- Pleiotropy + Estimate * bx[i]
-    }"
+    }
+    tau <- pow(sigma, -2)"
 
   # Conditional statements for the prior statements
 
@@ -81,7 +88,6 @@ mr_radialegger_rjags <- function(object,
 
     radialegger_model_string <-
       paste0("model {", Likelihood, "\n\n", Priors, "\n\n}")
-
   } else if (prior == "weak" && betaprior == "" && sigmaprior == "") {
     #Setting up the model string
 
@@ -89,7 +95,6 @@ mr_radialegger_rjags <- function(object,
 
     radialegger_model_string <-
       paste0("model {", Likelihood, "\n\n", Priors, "\n\n}")
-
   } else if (prior == "pseudo" && betaprior == "" && sigmaprior == "") {
     #Setting up the model string
     Priors <- "Pleiotropy ~ dnorm(0,1E-3) \n Estimate ~ dt(0, 1, 1) \n invpsi ~ dgamma(1E-3, 1E-3) \n sigma <- 1/invpsi"
@@ -119,11 +124,8 @@ mr_radialegger_rjags <- function(object,
 
     Priors <- paste0(vcov_mat, rho)
 
-    #Priors <- "Pleiotropy ~ dnorm(0, 1E-6) \n Estimate ~ dnorm(0, 1E-6) \n sigma ~ dunif(.0001, 10)"
-
     radialegger_model_string <-
       paste0("model {", Likelihood, "\n\n", Priors, "\n\n}")
-
   } else if (betaprior != "" && sigmaprior != "") {
     part1 <- "Pleiotropy ~ dnorm(0, 1E-3) \n Estimate ~ "
     part2 <- "\n sigma ~ "
@@ -138,7 +140,6 @@ mr_radialegger_rjags <- function(object,
 
     radialegger_model_string <-
       paste0("model {", Likelihood, "\n\n", Priors, "\n\n }")
-
   } else if (betaprior == "" && sigmaprior != "") {
     part1 <- "Pleiotropy ~ dnorm(0, 1E-3) \n Estimate ~ dnorm(0, 1E-6) \n sigma ~"
     Priors <- paste0(part1, sigmaprior)
@@ -159,12 +160,17 @@ mr_radialegger_rjags <- function(object,
 
   if (!is.null(seed)) {
     if (length(seed) != n.chains) {
-      stop('The length of the seed vector must be equal to the number of chains.')
+      stop(
+        'The length of the seed vector must be equal to the number of chains.'
+      )
     }
 
     initsopt <- list()
     for (i in 1:n.chains) {
-      initsopt[[i]] <- list(.RNG.name = "base::Mersenne-Twister", .RNG.seed = seed[i])
+      initsopt[[i]] <- list(
+        .RNG.name = "base::Mersenne-Twister",
+        .RNG.seed = seed[i]
+      )
     }
   } else {
     initsopt <- NULL
@@ -197,8 +203,6 @@ mr_radialegger_rjags <- function(object,
 
   p <- summary(radialegger_samp)
 
-  prior <- prior
-
   niter <- n.iter
 
   nburn <- n.burn
@@ -214,13 +218,13 @@ mr_radialegger_rjags <- function(object,
   #Average Pleiotropic effect
   avg.pleio <- p$statistics[2, 1]
 
-  #Standard dev for AVg Pleio
+  #Standard dev for Avg Pleio
   avg.pleiostd <- p$statistics[2, 2]
 
   #lower credible interval
   avg.pleioLI <- p$quantiles[2, 1]
 
-  #mdeian credible interval
+  #median credible interval
   avg.pleioM <- p$quantiles[2, 3]
 
   #Upper credible interval
@@ -246,14 +250,14 @@ mr_radialegger_rjags <- function(object,
   Higher.credible_interval <- p$quantiles[1, 5]
 
   credible_interval <-
-    c(lower.credible_interval,
-      Median_interval,
-      Higher.credible_interval)
+    c(lower.credible_interval, Median_interval, Higher.credible_interval)
 
   # warning for residual error less than 1
 
   if (sigma < 1) {
-    warning("The mean of the sigma parameter, the residual standard deviation, is less than 1, we recommend refitting the model with sigma constrained to be >= 1.")
+    warning(
+      "The mean of the sigma parameter, the residual standard deviation, is less than 1, we recommend refitting the model with sigma constrained to be >= 1."
+    )
   }
 
   #Class for the output
@@ -279,7 +283,6 @@ mr_radialegger_rjags <- function(object,
 
   class(out) <- "radialeggerjags"
   return(out)
-
 }
 
 # Function for output of results
@@ -331,26 +334,19 @@ summary.radialeggerjags <- function(object, ...) {
     )
   #Generate statements for output
 
-
   cat("Prior : \n\n", out$Prior, "\n\n")
   cat("Estimation results:", "\n", "\n")
-  cat(DescTools::StrAlign("MCMC iterations = ", "\\r"),
-      out$MCMC,
-      "\n")
+  cat(DescTools::StrAlign("MCMC iterations = ", "\\r"), out$MCMC, "\n")
   cat(DescTools::StrAlign("Burn in = ", "\\r"), out$burnin, "\n")
-  cat(DescTools::StrAlign("Sample size by chain = ", "\\r"),
-      out$samplesize,
-      "\n")
-  cat(DescTools::StrAlign("Number of Chains = ", "\\r"),
-      out$chains,
-      "\n")
-  cat(DescTools::StrAlign("Number of SNPs = ", "\\r"),
-      out$nsnps,
-      "\n",
-      "\n")
+  cat(
+    DescTools::StrAlign("Sample size by chain = ", "\\r"),
+    out$samplesize,
+    "\n"
+  )
+  cat(DescTools::StrAlign("Number of Chains = ", "\\r"), out$chains, "\n")
+  cat(DescTools::StrAlign("Number of SNPs = ", "\\r"), out$nsnps, "\n", "\n")
 
   cat("Inflating Parameter:", out$sigma, "\n\n")
 
   print(out1, ...)
-
 }
